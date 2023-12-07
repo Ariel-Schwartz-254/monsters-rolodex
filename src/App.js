@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import SearchBox from './components/search-box/search-box.component';
+import CardList from './components/card-list/card-list.component';
+
+const App = () => {
+  console.log('render');
+  const [searchField, setsearchField] = useState(''); //[value, setValue]
+  const [monsters, setMonsters] = useState([]);
+  const [filteredMonsters, setFilteredMonsters] = useState(monsters);
+  console.log(searchField);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        const users = await response.json();
+        setMonsters(users);
+      } catch(error) {
+        console.log(error);
+      }
+    }
+    getUsers();
+  }, []);
+
+  useEffect(() => {
+    const newFilteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(searchField); 
+    });
+    setFilteredMonsters(newFilteredMonsters)
+  }, [searchField, monsters]);
+
+  const onSearchChange = (event) => {
+    const searchFieldString = event.target.value.toLocaleLowerCase();
+    setsearchField(searchFieldString);
+  }
+
+  return(
+      <div className="App">
+        <h1 className='app-title'>Monsters Rolodex</h1>
+        <SearchBox 
+          className = 'monsters-search-box'
+          onChangeHandler={onSearchChange} 
+          placeholder='Search Monsters'
+        />
+        <CardList monsters={filteredMonsters} />
+      </div>
+    );
 }
 
 export default App;

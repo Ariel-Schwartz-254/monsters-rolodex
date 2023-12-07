@@ -1,0 +1,14 @@
+.search-box {
+    -webkit-appearance: none;
+    border: 1px solid black;
+    outline: none;
+    padding: 10px;
+    width: 200px;
+    line-height: 30px;
+    margin-bottom: 30px;
+  }
+
+.search-box::placeholder
+{   
+  text-align: left;      /* for Chrome, Firefox, Opera */
+}
