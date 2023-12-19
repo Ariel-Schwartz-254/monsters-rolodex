@@ -1,6 +1,9 @@
 # Monsters Rolodex
 
 This is a simple React app that displays a rolodex of monsters. It was created as a learning exercise to get more familiar with React over TypeScript. (Very similar to the [Robofriends](https://github.com/Ariel-Schwartz-254/Robofriends) app)
+
+View the live demo [here](https://ariel-schwartz-254.github.io/monsters-rolodex/)
+
 ## Features
 
 - Displays a list of monsters with their name and email
